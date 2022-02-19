@@ -3,30 +3,10 @@ description: Delete uninformative SonarCloud PR comments
 runs:
   using: composite
   steps:
-  - name: Check action path
-    run: echo ${{ github.action_path }}
-    shell: bash
-
-  - name: Check path to packaje-lock.json
-    run: echo ${{ format('{0}/{1}', github.action_path, 'package-lock.json') }}
-    shell: bash
-
-# Fais because packaje-lock.json is outside of WORKSPACE
-  - name: Check hashFiles for packaje-lock.json
-    run: echo ${{ hashFiles(format('{0}/{1}', github.action_path, 'package-lock.json')) }}
-    shell: bash
-
-  - name: Get hash from shasum
-    run: shasum --algorithm 256 $GITHUB_ACTION_PATH/package-lock.json | cut -d' ' -f1
-    shell: bash
-
+  # hashFiles() fails because package-lock.json is outside of WORKSPACE
   - name: Set output
     id: hash
     run: echo "::set-output name=sha256::$(shasum --algorithm 256 $GITHUB_ACTION_PATH/package-lock.json | cut -d' ' -f1)"
-    shell: bash
-
-  - name: Verify we can see the output
-    run: echo ${{ steps.hash.outputs.sha256 }}
     shell: bash
 
   - name: Cache node_modules step
@@ -36,15 +16,11 @@ runs:
       path: ${{ github.action_path }}/node_modules
       key: actions-delete-comments-${{ steps.hash.outputs.sha256 }}
 
-  - name: Install dependencies step2
-    run: ls -alR ${{ github.action_path }}
-    shell: bash
-
   - name: Install dependencies step
     if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-    run: cd ${{ github.action_path }} && npm ci --ignore-scripts
+    run: cd $GITHUB_ACTION_PATH && npm ci --ignore-scripts
     shell: bash
 
   - name: Run step
-    run: node ${{ github.action_path }}/index.js
+    run: node $GITHUB_ACTION_PATH/index.js
     shell: bash
