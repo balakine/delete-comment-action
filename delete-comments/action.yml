@@ -3,11 +3,23 @@ description: Delete uninformative SonarCloud PR comments
 runs:
   using: composite
   steps:
+  - name: Check cache key1
+    run: echo ${{ github.action_path }}
+    shell: bash
+
+  - name: Check cache key2
+    run: echo ${{ format('{0}/{1}', github.action_path, 'package-lock.json') }}
+    shell: bash
+
+  - name: Check cache key3
+    run: echo ${{ hashFiles(format('{0}/{1}', github.action_path, 'package-lock.json')) }}
+    shell: bash
+
   - name: Cache node_modules step
     id: cache
     uses: actions/cache@v2
     with:
-      path: delete-comments/node_modules
+      path: ${{ github.action_path }}/node_modules
       key: actions-delete-comments-${{ hashFiles(format('{0}/{1}', github.action_path, 'package-lock.json')) }}
 
   - name: Install dependencies step2
