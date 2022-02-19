@@ -8,11 +8,7 @@ runs:
     uses: actions/cache@v2
     with:
       path: delete-comments/node_modules
-      key: actions-delete-comments-${{ hashFiles('delete-comments/package-lock.json') }}
-
-  - name: Install dependencies step1
-    run: pwd
-    shell: bash
+      key: actions-delete-comments-${{ hashFiles(format('{0}/{1}', github.action_path, 'package-lock.json')) }}
 
   - name: Install dependencies step2
     run: ls -alR ${{ github.action_path }}
@@ -20,9 +16,9 @@ runs:
 
   - name: Install dependencies step
     if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-    run: cd delete-comments && npm ci --ignore-scripts
+    run: cd ${{ github.action_path }} && npm ci --ignore-scripts
     shell: bash
 
   - name: Run step
-    run: node delete-comments/index.js
+    run: node ${{ github.action_path }}/index.js
     shell: bash
