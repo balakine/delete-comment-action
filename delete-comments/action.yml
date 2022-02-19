@@ -15,7 +15,7 @@ runs:
     shell: bash
 
   - name: Install dependencies step2
-    run: ls -alR ..
+    run: ls -alR ${{ github.action_path }}
     shell: bash
 
   - name: Install dependencies step
