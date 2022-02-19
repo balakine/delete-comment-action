@@ -17,12 +17,12 @@ runs:
     shell: bash
 
   - name: Get hash from shasum
-    run: shasum --algorithm 256 package-lock.json | cut -d' ' -f1
+    run: shasum --algorithm 256 $GITHUB_ACTION_PATH/package-lock.json | cut -d' ' -f1
     shell: bash
 
   - name: Set output
     id: hash
-    run: echo "::set-output name=sha256::$(shasum --algorithm 256 package-lock.json | cut -d' ' -f1)"
+    run: echo "::set-output name=sha256::$(shasum --algorithm 256 $GITHUB_ACTION_PATH/package-lock.json | cut -d' ' -f1)"
     shell: bash
 
   - name: Verify we can see the output
