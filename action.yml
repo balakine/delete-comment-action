@@ -38,6 +38,6 @@ runs:
     run: node $GITHUB_ACTION_PATH/index.js
     shell: bash
     env:
-      INPUT_userId: ${{ inputs.userId }}
-      INPUT_userLogin: ${{ inputs.userLogin }}
-      INPUT_userType: ${{ inputs.userType }}
+      INPUT_USERID: ${{ inputs.userId }}
+      INPUT_USERLOGIN: ${{ inputs.userLogin }}
+      INPUT_USERTYPE: ${{ inputs.userType }}
