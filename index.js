@@ -1,10 +1,11 @@
 'use strict';
 
+import { getInput } from '@actions/core';
 import { context, getOctokit } from '@actions/github';
 
-const targetUserLogin = 'balakine';
-const targetUserId = 9373325;
-const targetUserType = 'User';
+const targetUserLogin = getInput('userLogin');
+const targetUserId = getInput('userId');
+const targetUserType = getInput('usertype');
 const substrings = [
   'blah',
 ];
