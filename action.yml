@@ -4,7 +4,7 @@ inputs:
   userId:
     required: true
     description: User id
-  userLogin:
+  user-login:
     required: false
     default: 'sonarcloud[bot]'
     description: User login, defaults to 'sonarcloud[bot]'
