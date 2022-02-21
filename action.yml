@@ -4,7 +4,7 @@ inputs:
   userId:
     required: true
     description: User id
-  user-login:
+  userLogin:
     required: false
     default: 'sonarcloud[bot]'
     description: User login, defaults to 'sonarcloud[bot]'
@@ -37,3 +37,7 @@ runs:
   - name: Run action step
     run: node $GITHUB_ACTION_PATH/index.js
     shell: bash
+    env:
+      INPUT_userId: ${{ inputs.userId }}
+      INPUT_userLogin: ${{ inputs.userLogin }}
+      INPUT_userType: ${{ inputs.userType }}

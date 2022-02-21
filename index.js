@@ -3,7 +3,7 @@
 import { getInput } from '@actions/core';
 import { context, getOctokit } from '@actions/github';
 
-const targetUserLogin = getInput('user-login');
+const targetUserLogin = getInput('userLogin');
 const targetUserId = getInput('userId');
 const targetUserType = getInput('usertype');
 const substrings = [
