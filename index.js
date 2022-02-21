@@ -19,7 +19,7 @@ const body = comment.body;
 const commentId = comment.id;
 
 console.log(`User login: ${userLogin}, user id: ${userId}, user type: ${userType}`);
-if (userLogin === targetUserLogin && userId === targetUserId && userType === targetUserType) {
+if (userLogin === targetUserLogin && userId == targetUserId && userType === targetUserType) {
   console.log('✅ User matches');
 } else {
   console.log(`⏭ Only looking for user login: ${targetUserLogin}, user id: ${targetUserId}, user type: ${targetUserType}`);
